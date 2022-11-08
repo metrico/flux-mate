@@ -1,0 +1,21 @@
+<div style="height: 100%; width: 100%;">
+    <ngx-monaco-editor
+        class="my-code-editor"
+        [options]="editorOptions"
+        [ngModel]="code"
+        (ngModelChange)="onChangeCode($event)"
+        (onInit)="onInit($event)"
+        style="height: 100%;"
+    ></ngx-monaco-editor>
+    <button
+        class="btn-send"
+        matSuffix
+        mat-icon-button
+        matTooltip="Ctrl + Enter"
+        color="primary"
+        aria-label="Run"
+        (click)="onClickRun('QUERY')"
+    >
+        <mat-icon>send</mat-icon>
+    </button>
+</div>
