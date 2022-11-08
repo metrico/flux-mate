@@ -1,0 +1,75 @@
+name: Build & Publish
+
+on:
+  push:
+    branches: [ master, main ]
+    paths-ignore:
+      - '**/README.md'
+  pull_request:
+    branches: [ master, main ]
+    paths-ignore:
+      - '**/README.md'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: 'Automated Version Bump'
+      id: version-bump
+      if: github.event_name != 'pull_request'
+      uses: 'phips28/gh-action-bump-version@master'
+      with:
+        tag-prefix: 'v'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run: npm install
+    - run: npm run build --if-present
+
+    - name: Deploy to demo branch 🚀
+      if: github.event_name != 'pull_request'
+      uses: JamesIves/github-pages-deploy-action@v4.2.3
+      with:
+        branch: demo
+        folder: dist/FluxMate
+        
+    - name: ZIP Release
+      if: github.event_name != 'pull_request'
+      uses: thedoctor0/zip-release@main
+      with:
+        type: 'zip'
+        filename: 'release.zip'
+        directory: 'dist/FluxMate'
+        
+    - name: Get Timestamp
+      if: github.event_name != 'pull_request'
+      id: time
+      uses: nanzm/get-time-action@v1.1
+      with:
+        timeZone: 0
+        format: 'YYYYMMDDHHmmss'
+        
+    - name: Upload release
+      if: github.event_name != 'pull_request'
+      uses: boxpositron/upload-multiple-releases@1.0.7
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_config: |
+            dist/FluxMate/release.zip
+            release.zip
+        release_name: clickhouse-mate_${{ steps.version-bump.outputs.newTag }}
+        tag_name: ${{ steps.time.outputs.time }}
+        draft: false
+        prerelease: false
+        overwrite: true

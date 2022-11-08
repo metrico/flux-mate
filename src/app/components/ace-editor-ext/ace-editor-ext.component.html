@@ -1,0 +1,73 @@
+<div class="wrapper-ace-editor" #wrapperAceEditor>
+    <div class="ace-editor-wrapper">
+        <ace-editor
+            class="editor"
+            [text]="sqlRequest"
+            [mode]="'sql'"
+            [theme]="'sqlserver'"
+            [readOnly]="false"
+            [options]="{ enableBasicAutocompletion: true }"
+            [autoUpdateContent]="true"
+            #editor
+        ></ace-editor>
+    </div>
+    <!-- [textContent]="sqlRequest" -->
+    <div
+        contenteditable="true"
+        spellcheck="false"
+        class="hide-text-container"
+        (input)="setRequestData()"
+        (mouseup)="mouseUp()"
+        (keydown)="keydown($event)"
+        #contenteditableContainer
+    ></div>
+    <button
+        class="btn-send"
+        matSuffix
+        mat-icon-button
+        matTooltip="Ctrl + Enter"
+        color="primary"
+        aria-label="Run"
+        (click)="onClickRun('QUERY')"
+    >
+        <mat-icon>send</mat-icon>
+    </button>
+
+    <div
+        class="autocomplete-menu"
+        [ngClass]="{ dark: isDarkMode }"
+        [style.display]="isAutocompleteVisible && dictionary.length > 0 ? 'block' : 'none'"
+        #autocomplete
+    >
+        <div *ngFor="let item of dictionary; let i = index" class="item"
+            [class.selected]="autocompleteSelectorIndex === i">
+            <div (click)="onItemClick(item)">
+                <mat-icon class="customIconSize" *ngIf="item?.icon === 0">
+                    line_style
+                </mat-icon>
+                <mat-icon class="customIconSize" *ngIf="item?.icon === 1">
+                    category
+                </mat-icon>
+                <mat-icon class="customIconSize" *ngIf="item?.icon === 2">
+                    bubble_chart
+                </mat-icon>
+                <mat-icon class="customIconSize" *ngIf="item?.icon === 3">
+                    hdr_weak
+                </mat-icon>
+                <mat-icon class="customIconSize" *ngIf="item?.icon === 4">
+                    subject
+                </mat-icon>
+                {{ item.name }}
+            </div>
+            <span
+                style="float: right; flex: 1; text-align: end"
+                *ngIf="!!item.doc_link">
+                <mat-icon
+                    class="customIconSize"
+                    (click)="setInfo(item.doc_link)">
+                    info
+                </mat-icon>
+            </span>
+        </div>
+    </div>
+</div>
