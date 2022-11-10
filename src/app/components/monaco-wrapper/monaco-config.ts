@@ -1,4 +1,4 @@
-import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
+import { NgxMonacoEditorConfig } from '@solidev/ngx-monaco-editor';
 
 export const monacoConfig: NgxMonacoEditorConfig = {
     // baseUrl: 'app-name/assets',
@@ -6,6 +6,7 @@ export const monacoConfig: NgxMonacoEditorConfig = {
     defaultOptions: { scrollBeyondLastLine: false },
     // pass default options to be used
     onMonacoLoad: () => {
+
         // return; // use default options
         const monaco: any = (<any>window).monaco;
         const { languages: L } = monaco;
