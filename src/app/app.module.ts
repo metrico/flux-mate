@@ -1,6 +1,6 @@
 import { PopupTextModule } from './components/popup-text/popup-text.module';
 import { ChHelpModule } from './components/ch-help/ch-help.module';
-import { AceEditorExtModule } from './components/ace-editor-ext/ace-editor-ext.module';
+// import { AceEditorExtModule } from './components/ace-editor-ext/ace-editor-ext.module';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {
@@ -27,7 +27,7 @@ import { NgxUplotModule } from 'ngx-uplot';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
+import { MonacoEditorModule, NgxMonacoEditorConfig } from '@solidev/ngx-monaco-editor';
 import { MonacoWrapperComponent } from './components/monaco-wrapper/monaco-wrapper.component';
 import { monacoConfig } from './components/monaco-wrapper/monaco-config';
 
@@ -50,7 +50,7 @@ import { monacoConfig } from './components/monaco-wrapper/monaco-config';
         TreeFilterModule,
         CustomAgGridModule,
         LoginFormModule,
-        AceEditorExtModule,
+        // AceEditorExtModule,
         LoadingCircleModule,
         ChHelpModule,
         PopupTextModule,
