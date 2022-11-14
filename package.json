@@ -7,6 +7,7 @@
     "start:chm": "ng serve --open --configuration chm",
     "start:flux": "ng serve --open --configuration flux",
     "build:chm": "ng build --configuration chm",
+    "build": "npm run build:flux",
     "build:flux": "ng build --configuration flux",
     "build:demo": "ng build --base-href='/flux-mate/'",
     "watch": "ng build --watch --configuration development",
