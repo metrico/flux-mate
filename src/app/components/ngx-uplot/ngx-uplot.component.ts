@@ -40,7 +40,7 @@ export class NgxUplotComponent implements AfterViewInit {
         },
         focus: {
             alpha: 0.9
-        },				
+        },
         cursor: {
             focus: {
                 prox: 3,
@@ -239,7 +239,7 @@ export class NgxUplotComponent implements AfterViewInit {
 
         const setTooltip = (u: _uPlot) => {
             showTooltip();
-            
+
             if (this.customTooltip) {
                 this.showTooltip.emit(
                     {
@@ -254,9 +254,13 @@ export class NgxUplotComponent implements AfterViewInit {
                 tooltip.style.top  = (tooltipTopOffset  + top + shiftX) + "px";
                 tooltip.style.left = (tooltipLeftOffset + lft + shiftY) + "px";
 
+                let num = uPlot.fmtNum(u.data[seriesIdx][dataIdx]);
+                if (isNaN(num)) {
+                    num = ''
+                }
+
                 tooltip.textContent = (
-                    fmtDate(new Date(u.data[0][dataIdx] * 1e3)) + " - " + +
-                    uPlot.fmtNum(u.data[seriesIdx][dataIdx])
+                    fmtDate(new Date(u.data[0][dataIdx] * 1e3)) + (num ? " - " + num : '')
                 );
             }
         }
@@ -275,7 +279,7 @@ export class NgxUplotComponent implements AfterViewInit {
 
                     }
                 ],
-                
+
                 setCursor: [
                     (u: _uPlot) => {
                         let c = u.cursor;
