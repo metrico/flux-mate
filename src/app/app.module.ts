@@ -23,13 +23,14 @@ import { LoadingCircleModule } from './components/loading-circle/loading-circle.
 // import { NgxUplotModule } from './components/ngx-uplot/ngx-uplot.module';
 import { DialogKioskComponent } from './pages/dialogs/dialog-kiosk/dialog-kiosk.component';
 // import { MatDialogModule } from '@angular/material/dialog';
-import { NgxUplotModule } from 'ngx-uplot';
+
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { MonacoEditorModule, NgxMonacoEditorConfig } from '@solidev/ngx-monaco-editor';
 import { MonacoWrapperComponent } from './components/monaco-wrapper/monaco-wrapper.component';
 import { monacoConfig } from './components/monaco-wrapper/monaco-config';
+import { NgxUplotModule } from './components/ngx-uplot/ngx-uplot.module';
 
 @NgModule({
     declarations: [
@@ -62,6 +63,7 @@ import { monacoConfig } from './components/monaco-wrapper/monaco-config';
         // MatDialogModule,
         // MatButtonModule,
         MonacoEditorModule.forRoot(monacoConfig),
+        NgxUplotModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [
